@@ -1,0 +1,246 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Cart.aspx.cs" Inherits="Cart" %>
+<%@ Register tagPrefix="user" tagName="ProductView" src="~/UserControls/ProductView.ascx" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+     <title>MSS Store</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="bwres/css/bootstrap.min.css" rel="stylesheet">
+	<link href="bwres/css/style.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="bwres/css/font-awesome.min.css" rel="stylesheet">
+     <style type="text/css">
+        .style2
+        {
+            color: #FFFFFF;
+            font-size: large;
+            font-weight: bold;
+        }
+        .style3
+        {
+            width: 68px;
+        }
+         .style4
+         {
+             width: 510px;
+         }
+         .style5
+         {
+             width: 60px;
+         }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div class="container wrapper">
+      <div class="masthead">
+	 <ul class="nav nav-justified">
+          <li><a href="Default.aspx">Home</a></li>
+          <li><a href="faqs.html">Faqs</a></li>
+          <li><a href="terms.html">Terms</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <!-- Example row of columns -->
+      <div class="row">
+			<div class="header-area">
+			    <table style="width:100%;">
+                    <tr>
+                        <td class="style5">
+                            &nbsp;</td>
+                        <td class="style4">
+                            &nbsp;</td>
+                        <td>
+                            &nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td class="style5">
+                            &nbsp;</td>
+                        <td class="style4">
+                            &nbsp;</td>
+                        <td>
+                            &nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td class="style5">
+                            &nbsp;</td>
+                        <td class="style4">
+                            &nbsp;&nbsp;<asp:Image ID="Image2" runat="server" ImageUrl="~/bwres/images/favourite.jpg" 
+                                Height="23px" />
+                            <asp:LoginView ID="LoginView2" runat="server">
+                                <LoggedInTemplate>
+                                    Hi,
+                                    <asp:LoginName ID="LoginName1" runat="server" />
+                                    ,
+                                    <asp:LinkButton ID="LinkButton2" runat="server" ForeColor="Black" OnClick="LinkButton2_Click">My Profile</asp:LinkButton>
+                                    ,
+                                </LoggedInTemplate>
+                            </asp:LoginView>
+&nbsp;<asp:LoginStatus ID="LoginStatus1" runat="server" ForeColor="Black" LogoutAction="Redirect" 
+                                LogoutPageUrl="~/Default.aspx" />
+&nbsp;<asp:LoginView ID="LoginView1" runat="server">
+                                <LoggedInTemplate>
+                                    <asp:ImageButton ID="ImageButton2" runat="server" 
+                                ImageUrl="~/bwres/images/Edit.gif" 
+    ToolTip="My Account" />
+                                </LoggedInTemplate>
+                            </asp:LoginView>
+                            &nbsp; |
+                            <asp:Image ID="Image1" runat="server" ImageUrl="~/bwres/images/cart3.png" 
+                                Height="21px" />
+                            <asp:LinkButton ID="LinkButton1" runat="server" ForeColor="Black" 
+                                onclick="LinkButton1_Click">View Cart</asp:LinkButton>
+                            (<asp:Label ID="lblCount" runat="server" style="font-weight: 700"></asp:Label>
+                            ) </td>
+                        <td>
+                            &nbsp;</td>
+                    </tr>
+                </table>
+			</div>
+		
+            <p>
+                &nbsp;<br />
+            </p>
+            <script runat="server">
+
+  
+    
+</script>
+    <asp:Panel ID="Panel1" runat="server" Height="627px" BorderColor="#CC3300" 
+        BorderStyle="Dotted" BorderWidth="1px">
+        <asp:Panel ID="Panel2" runat="server" Height="27px" BackColor="#1376D7">
+            <span class="style2">Your Cart</span></asp:Panel>
+        <p></p>
+        <p>
+            <table style="width:100%;">
+                <tr>
+                    <td class="style3">
+                        &nbsp;</td>
+                    <td>
+                        
+                        <asp:GridView
+    id="grdShoppingCart"
+   
+    DataKeyNames="id"
+    AutoGenerateColumns="false"
+    AutoGenerateDeleteButton="false"
+    EmptyDataText="There are no items in your shopping cart. Add items to your shopping cart or Login to view your saved shopping cart."
+    AlternatingRowStyle-CssClass="cartAlternating"
+    GridLines="None"
+    ShowFooter="true"
+    Runat="server" OnDataBound="grdShoppingCart_DataBound" 
+                            OnRowDataBound="grdShoppingCart_RowDataBound" Width="751px" 
+                            onrowdeleting="grdShoppingCart_RowDeleting" 
+                            onrowcommand="grdShoppingCart_RowCommand">
+    <Columns>
+    
+
+                                               
+    <asp:BoundField DataField="Name" HeaderText="Product Name" />
+    <asp:BoundField DataField="Quantity" HeaderText="Quantity" />
+    <asp:TemplateField HeaderText="Price" FooterStyle-CssClass="cartTotalFooter">
+    <ItemTemplate>
+        <asp:Image ID="Image3" runat="server" ImageUrl="~/bwres/images/naira.png" /><%# Eval("Price") %>
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <asp:LinkButton ID="LinkButtonDelete" runat="server" CausesValidation="false" 
+                            CommandArgument='<%# Bind("id") %>' CommandName="Del" ForeColor="Maroon" 
+                            onclientclick="return confirm(&quot;Do you want to delete Entry?&quot;)" 
+                            Text="Delete" ToolTip="Delete"></asp:LinkButton>
+        
+    </ItemTemplate>
+    <FooterTemplate>
+    <asp:Label
+        id="lblTotal"
+        Runat="server" />
+    </FooterTemplate>
+    </asp:TemplateField>
+    
+    </Columns>
+</asp:GridView>
+<asp:Panel ID = "subPanel" runat="server">
+
+
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                        ____________________<br /> 
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Sub-Total
+                        <asp:Image ID="Image6" runat="server" ImageUrl="~/bwres/images/naira.png" />
+                        <asp:Label ID="lblSubTotal" runat="server" style="font-weight: 700"></asp:Label>
+                        &nbsp; <br /> 
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;______________________<br /> 
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <asp:HyperLink ID="HyperLink1" runat="server" BackColor="#FF9900" 
+                            BorderColor="#FF9900" BorderStyle="Solid" BorderWidth="1px" 
+                            Font-Underline="False" Height="29px" NavigateUrl="~/Default.aspx" Width="140px">&lt;&lt;Continue Shopping</asp:HyperLink>
+                        &nbsp;&nbsp;
+                        <asp:Button 
+                            ID="Button1" runat="server" BackColor="#FF9900" BorderColor="#FF9900" 
+                            BorderStyle="Solid" BorderWidth="1px" ForeColor="White" Height="29px" 
+                            Text="Proceed To Payment" onclick="Button1_Click" />
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br /> 
+                        _________________________________________________________________________________________________<br />
+                        </asp:Panel>
+                        <br />
+                        <asp:Label ID="lblEmptyCartMessage" runat="server" 
+                            Text="There are no items in your shopping cart. Add items to your shopping cart or Login to view your saved shopping cart" 
+                            Visible="False"></asp:Label>
+                        <br /><br />
+                         <asp:HyperLink 
+                            ID="ContinueShoppingLink" runat="server" BackColor="#FF9900" BorderColor="#FF9900" 
+                            BorderStyle="Solid" BorderWidth="1px" Font-Underline="False" Height="29px" 
+                            NavigateUrl="~/Default.aspx" Width="140px" Visible = "False">&lt;&lt;Continue Shopping</asp:HyperLink>
+    
+    
+<asp:Hyperlink
+    id="lnkCheckOut"
+    Text="BUY NOW"
+    NavigateUrl="~/CheckOut/Default.aspx"
+    Runat="server" Visible = "false"/>
+
+
+<asp:ObjectDataSource
+    id="srcCart"
+    TypeName="ShoppingCart.ShoppingCart"
+    SelectMethod="Select"
+    DeleteMethod="Delete"
+    Runat="server" />
+
+                        </td>
+                    <td>
+                        &nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="style3">
+                        &nbsp;</td>
+                    <td>
+                        &nbsp;</td>
+                    <td>
+                        &nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="style3">
+                        &nbsp;</td>
+                    <td>
+                        &nbsp;</td>
+                    <td>
+                        &nbsp;</td>
+                </tr>
+            </table>
+        </p>
+    </asp:Panel>
+          <br /><br />
+    </div>
+      
+         <div class="footer">
+        <p class="pull-left">©mssl (2015)      ssl (2015)      </div>
+      </div>
+      
+      <!-- Site footer -->
+     
+       
+    </form>
+</body>
+</html>
